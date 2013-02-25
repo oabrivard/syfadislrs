@@ -26,7 +26,9 @@ http.createServer(function(req, res) {
 	
 	async.series([				
 	    function(callback){
-			mongoose.connect('mongodb://localhost/connections', function(err) {
+	    	//var connectionString = 'mongodb://localhost/connections';
+	    	var connectionString = 'mongodb://syfadis:syfadis@ds035787.mongolab.com:35787/MongoSyfadis';
+			mongoose.connect(connectionString, function(err) {
 				if (err) { callback(err, ''); }
 				
 				connectionModel = mongoose.model('connection', connectionSchema);
@@ -77,4 +79,6 @@ http.createServer(function(req, res) {
 			console.log( err );
 	});
 	
-}).listen(port);
+}).listen(port, function() {
+	console.log("Listening on port %d", port);
+});
